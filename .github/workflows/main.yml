@@ -13,8 +13,9 @@ jobs:
           sudo apt update && sudo apt install -y openssh-server curl
           sudo service ssh start
 
-          # Set a password for the 'runner' user
-          echo "runner:MySecurePass123" | sudo chpasswd
+          # Create a new user 'myuser' and set a password
+          sudo useradd -m -s /bin/bash myuser
+          echo "myuser:MySecurePass123" | sudo chpasswd
 
           # Allow password authentication in SSH
           sudo sed -i 's/^#PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
